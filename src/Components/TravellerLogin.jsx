@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
-const HostLogin = () => {
+const TravellerLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleTravellerSubmit = async (e) => {
     e.preventDefault();
 
     const response = await fetch("http://localhost:3001/auth/login", {
@@ -20,8 +20,8 @@ const HostLogin = () => {
       const data = await response.json();
       const token = data.accessToken;
       localStorage.setItem("token", token);
-
-      navigate("/welcome/host");
+      console.log("Navigating to /welcome/traveller");
+      navigate("/welcome/traveller");
     } else {
       alert("Login failed, try again or register the account!");
     }
@@ -29,11 +29,11 @@ const HostLogin = () => {
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+      <Form onSubmit={handleTravellerSubmit}>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
           <Form.Control
             type="email"
-            placeholder="Email "
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -42,7 +42,7 @@ const HostLogin = () => {
         <Form.Group className="mb-3">
           <Form.Control
             type="password"
-            placeholder="Password "
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -56,4 +56,4 @@ const HostLogin = () => {
   );
 };
 
-export default HostLogin;
+export default TravellerLogin;

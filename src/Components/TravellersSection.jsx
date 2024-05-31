@@ -26,9 +26,9 @@ class TravellersSection extends Component {
         }
       })
       .then((arrayOfTravellers) => {
-        console.log("arrayOfTravellers", arrayOfTravellers.content);
+        console.log("arrayOfTravellers", arrayOfTravellers);
         this.setState({
-          travellers: arrayOfTravellers.content,
+          travellers: arrayOfTravellers,
           isLoading: false,
         });
       })

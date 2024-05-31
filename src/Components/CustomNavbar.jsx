@@ -9,17 +9,21 @@ import { BsPersonCircle } from "react-icons/bs";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Dropdown from "react-bootstrap/Dropdown";
-import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
+import HostLogin from "./HostLogin";
+import TravellerLogin from "./TravellerLogin";
+import TravellerRegistration from "./TravellerRegistration";
+import HostRegistration from "./HostRegistration";
 
 const CustomNavbar = () => {
   const [showDrop, setShowDrop] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showModalTraveller, setShowModalTraveller] = useState(false);
+  const [showModalHost, setShowModalHost] = useState(false);
   const [showDrop2, setShowDrop2] = useState(false);
-  const [showJoin, setShowJoin] = useState(false);
+  const [showJoinTraveller, setShowJoinTraveller] = useState(false);
+  const [showJoinHost, setShowJoinHost] = useState(false);
   const [joinModalTitle, setJoinModalTitle] = useState(false);
   const [loginModalTitle, setLoginModalTitle] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const handleShowDrop = () => {
     setShowDrop(true);
@@ -30,16 +34,21 @@ const CustomNavbar = () => {
   };
 
   const showLoginModal = (type) => {
-    setShowModal(true);
     if (type === "backpacker") {
+      setShowModalTraveller(true);
       setLoginModalTitle("Backpacker login");
     } else if (type === "host") {
+      setShowModalHost(true);
       setLoginModalTitle("Host login");
     }
   };
 
-  const closeLoginModal = () => {
-    setShowModal(false);
+  const closeLoginModalTraveller = () => {
+    setShowModalTraveller(false);
+  };
+
+  const closeLoginModalHost = () => {
+    setShowModalHost(false);
   };
 
   const handleShowDrop2 = () => {
@@ -50,16 +59,21 @@ const CustomNavbar = () => {
     setShowDrop2(false);
   };
   const showJoinModal = (type) => {
-    setShowJoin(true);
     if (type === "backpacker") {
+      setShowJoinTraveller(true);
       setJoinModalTitle("Join as backpacker");
     } else if (type === "host") {
+      setShowJoinHost(true);
       setJoinModalTitle("Join as host");
     }
   };
 
-  const closeJoinModal = () => {
-    setShowJoin(false);
+  const closeJoinModalTraveller = () => {
+    setShowJoinTraveller(false);
+  };
+
+  const closeJoinModalHost = () => {
+    setShowJoinHost(false);
   };
 
   return (
@@ -75,11 +89,7 @@ const CustomNavbar = () => {
           />
         </Col>
         <Col className="text-center px-0">
-          <Navbar.Brand
-            href="#home"
-            className="fs-3 fw-bold"
-            style={{ color: "#06900d" }}
-          >
+          <Navbar.Brand className="fs-3 fw-bold" style={{ color: "#06900d" }}>
             Backpackers
           </Navbar.Brand>
         </Col>
@@ -88,11 +98,7 @@ const CustomNavbar = () => {
           <span className="px-4">
             <FaHeart className="fs-3" />
           </span>
-          <Nav.Link
-            href="#favourites"
-            style={{ color: "#264f4b" }}
-            className="fs-6"
-          >
+          <Nav.Link style={{ color: "#264f4b" }} className="fs-6">
             Favourites
           </Nav.Link>
         </Col>
@@ -102,118 +108,55 @@ const CustomNavbar = () => {
             <BsPersonCircle className=" fs-3" />
           </span>
           <Nav.Link
-            href="#login"
             style={{ color: "#264f4b" }}
             className="fs-6"
             onClick={handleShowDrop}
           >
             Login
           </Nav.Link>
-          {/* **************** MODAL LOGIN BACKPACKERS **********************/}
+          {/* **************** MODAL LOGIN TRAVELLER **********************/}
 
           <Dropdown show={showDrop} onToggle={handleCloseDrop}>
             <Dropdown.Menu>
-              <Dropdown.Item
-                href="#backpacker"
-                onClick={() => showLoginModal("backpacker")}
-              >
+              <Dropdown.Item onClick={() => showLoginModal("backpacker")}>
                 Login as Backpacker
               </Dropdown.Item>
-              <Modal show={showModal} onHide={closeLoginModal}>
+              <Modal
+                show={showModalTraveller}
+                onHide={closeLoginModalTraveller}
+              >
                 <Modal.Header closeButton>
-                  <Modal.Title
-                    // style={{ color: "#b3cb3d" }}
-                    className="modal-title fw-semibold"
-                  >
+                  <Modal.Title className="modal-title fw-semibold">
                     {loginModalTitle}
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Form>
-                    <Form.Group className="mb-3">
-                      <Form.Control
-                        type="email"
-                        placeholder="Email"
-                        required
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                        }}
-                      />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                      <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={password}
-                        onChange={(e) => {
-                          setPassword(e.target.value);
-                        }}
-                      />
-                    </Form.Group>
-                  </Form>
+                  <TravellerLogin />
                 </Modal.Body>
-                <Modal.Footer>
-                  <Button
-                    className="modal-button"
-                    onClick={closeLoginModal}
-                    type="submit"
-                  >
-                    Login
-                  </Button>
-                </Modal.Footer>
               </Modal>
               {/* **************** MODAL LOGIN HOST **********************/}
-              <Dropdown.Item
-                href="#host"
-                onClick={() => showLoginModal("host")}
-              >
+              <Dropdown.Item onClick={() => showLoginModal("host")}>
                 Login as Host
               </Dropdown.Item>
 
-              <Modal show={showModal} onHide={closeLoginModal}>
+              <Modal show={showModalHost} onHide={closeLoginModalHost}>
                 <Modal.Header closeButton>
                   <Modal.Title className="fw-semibold">
                     {loginModalTitle}
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Form>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Control
-                        type="email"
-                        placeholder="Email"
-                        autoFocus
-                      />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                      <Form.Control type="password" placeholder="Password" />
-                    </Form.Group>
-                  </Form>
+                  <HostLogin />
                 </Modal.Body>
-                <Modal.Footer>
-                  <Button
-                    className="button-modal"
-                    onClick={closeLoginModal}
-                    type="submit"
-                  >
-                    Login
-                  </Button>
-                </Modal.Footer>
               </Modal>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
 
-        {/******************* MODAL JOIN AS BACKPACKER *********************/}
+        {/******************* MODAL TRAVELLER REGISTRATION *********************/}
 
         <Col sm={12} md={2} lg={2} className="text-center px-0">
           <Button
-            href="#join"
             className="fs-6 fw-semibold  border border-none text-center"
             style={{
               backgroundColor: "#3d605b",
@@ -226,74 +169,42 @@ const CustomNavbar = () => {
           </Button>
           <Dropdown show={showDrop2} onToggle={handleCloseDrop2}>
             <Dropdown.Menu>
-              <Dropdown.Item
-                href="#backpacker"
-                onClick={() => showJoinModal("backpacker")}
-              >
+              <Dropdown.Item onClick={() => showJoinModal("backpacker")}>
                 Join as Backpacker
               </Dropdown.Item>
 
-              <Modal show={showJoin} onHide={closeJoinModal}>
+              <Modal show={showJoinTraveller} onHide={closeJoinModalTraveller}>
                 <Modal.Header closeButton>
-                  <Modal.Title
-                    // style={{ color: "#b3cb3d" }}
-                    className="fw-semibold"
-                  >
+                  <Modal.Title className="fw-semibold">
                     {joinModalTitle}
                   </Modal.Title>
+                  {/* <div>
+                    <h6>
+                      Already have an account? <Link to={"/login"}>Login</Link>
+                    </h6>
+                  </div> */}
                 </Modal.Header>
                 <Modal.Body>
-                  <Form>
-                    <Form.Group className="mb-3">
-                      <Form.Control
-                        type="email"
-                        placeholder="Email"
-                        autoFocus
-                      />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                      <Form.Control type="password" placeholder="Password" />
-                    </Form.Group>
-                  </Form>
+                  <TravellerRegistration />
                 </Modal.Body>
               </Modal>
 
-              {/***************$ MODAL JOIN AS HOST ********************$*/}
+              {/***************$ MODAL HOST REGISTRATION ********************$*/}
 
-              <Dropdown.Item href="#host" onClick={() => showJoinModal("host")}>
+              <Dropdown.Item onClick={() => showJoinModal("host")}>
                 Join as Host
               </Dropdown.Item>
 
-              <Modal show={showJoin} onHide={closeJoinModal}>
+              <Modal show={showJoinHost} onHide={closeJoinModalHost}>
                 <Modal.Header closeButton>
-                  <Modal.Title
-                    // style={{ color: "#b3cb3d" }}
-                    className="fw-semibold"
-                  >
+                  <Modal.Title className="fw-semibold">
                     {joinModalTitle}
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Form>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Control type="email" placeholder="Email" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                      <Form.Control type="password" placeholder="Password" />
-                    </Form.Group>
-                  </Form>
+                  <HostRegistration />
                 </Modal.Body>
-                <Modal.Footer>
-                  <Button
-                    className="button-modal text-white"
-                    onClick={closeLoginModal}
-                  >
-                    Register
-                  </Button>
-                </Modal.Footer>
+                <Modal.Footer></Modal.Footer>
               </Modal>
             </Dropdown.Menu>
           </Dropdown>
