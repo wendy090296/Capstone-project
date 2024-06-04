@@ -9,7 +9,6 @@ import { BsPersonCircle } from "react-icons/bs";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Dropdown from "react-bootstrap/Dropdown";
-import { Link } from "react-router-dom";
 import HostLogin from "./HostLogin";
 import TravellerLogin from "./TravellerLogin";
 import TravellerRegistration from "./TravellerRegistration";
@@ -77,7 +76,7 @@ const CustomNavbar = () => {
   };
 
   return (
-    <Container fluid className="navbar1">
+    <Container fluid className="navbar1 navbar-scrolled">
       <Row className="align-items-center justify-content-center">
         <Col sm={12} md={2} lg={2} className="text-center px-0">
           <img
@@ -131,7 +130,7 @@ const CustomNavbar = () => {
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <TravellerLogin />
+                  <TravellerLogin onChildClick={closeLoginModalTraveller} />
                 </Modal.Body>
               </Modal>
               {/* **************** MODAL LOGIN HOST **********************/}
@@ -146,7 +145,7 @@ const CustomNavbar = () => {
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <HostLogin />
+                  <HostLogin onChildClick={closeLoginModalHost} />
                 </Modal.Body>
               </Modal>
             </Dropdown.Menu>
@@ -178,14 +177,11 @@ const CustomNavbar = () => {
                   <Modal.Title className="fw-semibold">
                     {joinModalTitle}
                   </Modal.Title>
-                  {/* <div>
-                    <h6>
-                      Already have an account? <Link to={"/login"}>Login</Link>
-                    </h6>
-                  </div> */}
                 </Modal.Header>
                 <Modal.Body>
-                  <TravellerRegistration />
+                  <TravellerRegistration
+                    onChildClick={closeJoinModalTraveller}
+                  />
                 </Modal.Body>
               </Modal>
 
@@ -202,7 +198,7 @@ const CustomNavbar = () => {
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <HostRegistration />
+                  <HostRegistration onChildClick={closeJoinModalHost} />
                 </Modal.Body>
                 <Modal.Footer></Modal.Footer>
               </Modal>

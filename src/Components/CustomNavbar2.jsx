@@ -25,7 +25,6 @@ const CustomNavbar2 = () => {
                 <NavDropdown.Item href="#experiences">
                   Experiences
                 </NavDropdown.Item>
-                {/* <NavDropdown.Divider /> */}
               </div>
             </NavDropdown>
           </Col>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Form, Button, Container, InputGroup } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
-const HostRegistration = () => {
+const HostRegistration = ({ onChildClick }) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -11,11 +12,18 @@ const HostRegistration = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [failureMessage, setFailureMessage] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [nationality, setNationality] = useState("");
+  const [age, setAge] = useState("");
+  const [location, setLocation] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmedPasswordVisible, setConfirmedPasswordVisible] =
     useState(false);
+  const [projectDescription, setProjectDescription] = useState("");
+  const [spokenLanguages, setSpokenLanguages] = useState("");
+  const [maxOccupancy, setMaxOccupancy] = useState("");
+  const [workingHours, setWorkingHours] = useState("");
+  const [wifi, setWifi] = useState("");
+  const [pets, setPets] = useState("");
+  const navigate = useNavigate();
 
   const handleHostFormSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +33,7 @@ const HostRegistration = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/auth/register", {
+      const response = await fetch("http://localhost:3001/hosts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,14 +43,22 @@ const HostRegistration = () => {
           surname,
           email,
           password,
-          birthdate,
-          nationality,
+          age,
+          location,
+          projectDescription,
+          spokenLanguages,
+          maxOccupancy,
+          workingHours,
+          wifi,
+          pets,
         }),
       });
 
       if (response.ok) {
         alert("Successfully registered!");
         resetForm();
+        onChildClick();
+        navigate("/");
       } else {
         const errorData = await response.json();
         setError(errorData.message);
@@ -61,6 +77,14 @@ const HostRegistration = () => {
     setConfirmedPassword("");
     setFailureMessage("");
     setError("");
+    setAge("");
+    setLocation("");
+    setProjectDescription("");
+    setSpokenLanguages("");
+    setMaxOccupancy("");
+    setWorkingHours("");
+    setWifi("");
+    setPets("");
   };
 
   const togglePasswordVisibility = () => {
@@ -132,6 +156,86 @@ const HostRegistration = () => {
               {confirmedPasswordVisible ? <FaEyeSlash /> : <FaEye />}
             </InputGroup.Text>
           </InputGroup>
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Age</Form.Label>
+          <Form.Control
+            type="number"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Location</Form.Label>
+          <Form.Control
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Project Description</Form.Label>
+          <Form.Control
+            type="text"
+            value={projectDescription}
+            onChange={(e) => setProjectDescription(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Spoken Languages</Form.Label>
+          <Form.Control
+            type="text"
+            value={spokenLanguages}
+            onChange={(e) => setSpokenLanguages(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Max Occupancy</Form.Label>
+          <Form.Control
+            type="number"
+            value={maxOccupancy}
+            onChange={(e) => setMaxOccupancy(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Daily working hours</Form.Label>
+          <Form.Control
+            type="number"
+            value={workingHours}
+            onChange={(e) => setWorkingHours(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Wify</Form.Label>
+          <Form.Control
+            type="boolean"
+            value={wifi}
+            onChange={(e) => setWifi(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Pets</Form.Label>
+          <Form.Control
+            type="text"
+            value={pets}
+            onChange={(e) => setPets(e.target.value)}
+            required
+          />
         </Form.Group>
 
         <Button type="submit" className="m-2">

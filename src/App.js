@@ -2,31 +2,60 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./Components/Homepage";
-import WelcomeHost from "./Components/WelcomeHost";
-import WelcomeTraveller from "./Components/WelcomeTraveller";
-// import CustomNavbar from "./Components/CustomNavbar";
-// import CustomNavbar2 from "./Components/CustomNavbar2";
+import ProfileHost from "./Components/ProfileHost";
+import ProfileTraveller from "./Components/ProfileTraveller";
 import CustomFooter from "./Components/CustomFooter";
+import { useState, useEffect } from "react";
+import CustomNavbar from "./Components/CustomNavbar";
+import CustomNavbar2 from "./Components/CustomNavbar2";
+import ScrollToTop from "./Components/ScrollToTop";
 
-function App() {
+const App = () => {
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrollingDown(currentScrollY > lastScrollY);
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <BrowserRouter>
+      <ScrollToTop />
+      <header>
+        <CustomNavbar />
+        <CustomNavbar2
+          className={isScrollingDown ? "navbar-hidden" : "navbar-visible"}
+        />
+      </header>
       <main>
         <Routes>
-          <Route element={<WelcomeHost />} path="/welcome/host" />
-          <Route element={<WelcomeTraveller />} path="/welcome/traveller" />
-          <Route element={<HomePage />} path="/" />
+          <Route path="/host/:id" element={<ProfileHost />} />
+          <Route path="/traveler/:id" element={<ProfileTraveller />} />
+          <Route path="/" element={<HomePage />} />
           <Route
-            element={<h1 className="text-center">NOT FOUND - 404 </h1>}
             path="*"
+            element={
+              <h1 className="text-center not-found">NOT FOUND - 404 </h1>
+            }
           />
         </Routes>
       </main>
       <footer>
-        <CustomFooter></CustomFooter>
+        <CustomFooter />
       </footer>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

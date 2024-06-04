@@ -1,20 +1,24 @@
-import { Component } from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Carousel from "react-bootstrap/Carousel";
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Carousel,
+  Spinner,
+} from "react-bootstrap";
+import { useNavigate } from "react-router";
 
-const myUrl = "http://localhost:3001/travellers";
+const TravellersSection = ({ traveller }) => {
+  const [travellers, setTravellers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedTraveler, setSelectedTraveler] = useState(null);
+  const navigate = useNavigate();
 
-class TravellersSection extends Component {
-  state = {
-    travellers: [],
-    isLoading: true,
-  };
+  const myUrl = "http://localhost:3001/travellers";
 
-  fetchTravellers = () =>
+  const fetchTravellers = () => {
     fetch(myUrl)
       .then((response) => {
         console.log("response", response);
@@ -27,76 +31,102 @@ class TravellersSection extends Component {
       })
       .then((arrayOfTravellers) => {
         console.log("arrayOfTravellers", arrayOfTravellers);
-        this.setState({
-          travellers: arrayOfTravellers,
-          isLoading: false,
-        });
+        setTravellers(arrayOfTravellers);
+        setIsLoading(false);
       })
-
       .catch((err) => {
         console.log("error", err);
-        this.setState({
-          isLoading: false,
-        });
+        setIsLoading(false);
       });
+  };
 
-  componentDidMount() {
-    this.fetchTravellers();
-  }
+  useEffect(() => {
+    fetchTravellers();
+  }, []);
 
-  render() {
-    return (
-      <Container>
-        <Row className="justify-content-center">
-          <h3 className="text-center py-5 fw-bold" style={{ color: "#3d605b" }}>
-            Connect with volunteers
-          </h3>
-        </Row>
+  const handleSelection = (traveller) => {
+    console.log("Selected Traveller:", traveller);
+    setSelectedTraveler(traveller);
+    navigate(`/traveler/${traveller.id}`);
+  };
+
+  return (
+    <Container>
+      <Row className="justify-content-center">
+        <h3 className="text-center py-5 fw-bold" style={{ color: "#3d605b" }}>
+          Connect with volunteers
+        </h3>
+      </Row>
+      {isLoading ? (
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "200px" }}
+        >
+          <Spinner
+            animation="border"
+            role="status"
+            variant="success
+          "
+          >
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
         <Carousel>
-          {this.state.travellers
-            .reduce((acc, traveller, i) => {
-              if (i % 4 === 0) {
-                acc.push([]);
-              }
-              acc[acc.length - 1].push(traveller);
-              return acc;
-            }, [])
-            .map((traveller) => (
-              <Carousel.Item key={traveller.id}>
-                <Row className="justify-content-center align-items-center">
-                  {traveller.map((traveller) => (
-                    <Col
-                      key={traveller.id}
-                      xs={12}
-                      md={4}
-                      lg={3}
-                      className="text-center"
-                    >
-                      <Card className="card border-0 w-75 px-2">
-                        <Card.Img
-                          variant="top"
-                          src={traveller.avatar}
-                          className="image rounded-circle"
-                        />
-                        <Card.Body className="card-body">
-                          <Card.Title style={{ color: "#3d605b" }}>
-                            {traveller.name} {traveller.surname}
-                          </Card.Title>
-                          <Card.Img src={traveller.country} className="flag" />
-                          <Button variant="success" className="button">
-                            Let's connect
-                          </Button>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
-              </Carousel.Item>
-            ))}
+          {travellers.length > 0 ? (
+            travellers
+              .reduce((acc, traveller, i) => {
+                if (i % 4 === 0) {
+                  acc.push([]);
+                }
+                acc[acc.length - 1].push(traveller);
+                return acc;
+              }, [])
+              .map((travellerGroup, index) => (
+                <Carousel.Item key={index}>
+                  <Row className="justify-content-center align-items-center">
+                    {travellerGroup.map((traveller) => (
+                      <Col
+                        key={traveller.id}
+                        xs={12}
+                        md={4}
+                        lg={3}
+                        className="text-center"
+                      >
+                        <Card
+                          className="card border-0 w-75 px-2"
+                          onClick={() => handleSelection(traveller)}
+                        >
+                          <Card.Img
+                            variant="top"
+                            src={traveller.avatar}
+                            className="image rounded-circle"
+                          />
+                          <Card.Body className="card-body">
+                            <Card.Title style={{ color: "#3d605b" }}>
+                              {traveller.name}
+                            </Card.Title>
+                            <Card.Img
+                              src={traveller.country}
+                              className="flag"
+                            />
+                            <Button variant="success" className="button">
+                              Let's connect
+                            </Button>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                </Carousel.Item>
+              ))
+          ) : (
+            <div>No travellers found</div>
+          )}
         </Carousel>
-      </Container>
-    );
-  }
-}
+      )}
+    </Container>
+  );
+};
 
 export default TravellersSection;

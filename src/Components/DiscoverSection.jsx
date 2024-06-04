@@ -5,7 +5,7 @@ import Image from "react-bootstrap/Image";
 
 const DiscoverSection = () => {
   return (
-    <Container fluid className="p-0">
+    <Container fluid className="p-0 mt-5 ">
       <Row>
         <Col>
           <Image

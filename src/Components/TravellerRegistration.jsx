@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button, Container, InputGroup } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
-const TravellerRegistration = () => {
+const TravellerRegistration = ({ onChildClick }) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -14,6 +15,13 @@ const TravellerRegistration = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [failureMessage, setFailureMessage] = useState("");
+  const [age, setAge] = useState("");
+  const [country, setCountry] = useState("");
+  const [travelDestination, setTravelDestination] = useState("");
+  const [description, setDescription] = useState("");
+  const [spokenLanguages, setSpokenLanguages] = useState("");
+  const [interests, setInterests] = useState("");
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +32,7 @@ const TravellerRegistration = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/auth/register", {
+      const response = await fetch("http://localhost:3001/travellers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,6 +42,12 @@ const TravellerRegistration = () => {
           surname,
           email,
           password,
+          age,
+          country,
+          description,
+          travelDestination,
+          spokenLanguages,
+          interests,
         }),
       });
 
@@ -43,6 +57,8 @@ const TravellerRegistration = () => {
       if (response.ok) {
         alert("Successfully registered!");
         resetForm();
+        onChildClick();
+        navigate("/");
       } else {
         setError(result.message);
       }
@@ -59,6 +75,12 @@ const TravellerRegistration = () => {
     setConfirmedPassword("");
     setFailureMessage("");
     setError("");
+    setAge("");
+    setCountry("");
+    setTravelDestination("");
+    setSpokenLanguages("");
+    setDescription("");
+    setInterests("");
   };
 
   const togglePasswordVisibility = () => {
@@ -130,6 +152,66 @@ const TravellerRegistration = () => {
               {confirmedPasswordVisible ? <FaEyeSlash /> : <FaEye />}
             </InputGroup.Text>
           </InputGroup>
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Age</Form.Label>
+          <Form.Control
+            type="text"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Country</Form.Label>
+          <Form.Control
+            type="text"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>travelDestination</Form.Label>
+          <Form.Control
+            type="text"
+            value={travelDestination}
+            onChange={(e) => setTravelDestination(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Interests</Form.Label>
+          <Form.Control
+            type="text"
+            value={interests}
+            onChange={(e) => setInterests(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Spoken Languages</Form.Label>
+          <Form.Control
+            type="text"
+            value={spokenLanguages}
+            onChange={(e) => setSpokenLanguages(e.target.value)}
+            required
+          />
         </Form.Group>
 
         <Button type="submit" className="m-2">

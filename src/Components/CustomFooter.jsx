@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 
 const CustomFooter = () => {
   return (
-    <Container fluid className="footer text-white">
+    <Container fluid className="footer text-white ">
       <Row className="p-5">
         <Col xs={12} md={3} lg={3} className=" mt-3">
           <div className="fw-bold mb-2">Information</div>
@@ -18,7 +18,6 @@ const CustomFooter = () => {
           <div>Terms and Conditions</div>
           <div>Data and privacy policy</div>
         </Col>
-        {/* <hr /> */}
         <Col xs={12} md={3} lg={3} className=" mt-3">
           <div className="fw-bold mb-2">Volunteam</div>
           <div>Find a host</div>
@@ -27,7 +26,6 @@ const CustomFooter = () => {
           <div>Join as host</div>
           <div>Join as Volunteer</div>
         </Col>
-        {/* <hr /> */}
         <Col xs={12} md={3} lg={3} className=" mt-3">
           <div className=" fw-bold mb-2">Our community</div>
           <div>Volunteam Blog</div>
@@ -35,7 +33,6 @@ const CustomFooter = () => {
           <div>Our Mission</div>
           <div>Volunteam Ambassadors</div>
         </Col>
-        {/* <hr className="lg-none" /> */}
         <Col xs={12} md={3} lg={3} className=" mt-3">
           <div className="fw-bold mb-3">Language</div>
           <span>

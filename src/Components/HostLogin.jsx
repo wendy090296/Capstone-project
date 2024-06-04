@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
-const HostLogin = () => {
+const HostLogin = ({ onChildClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -18,10 +18,13 @@ const HostLogin = () => {
 
     if (response.ok) {
       const data = await response.json();
+      const id = data.id;
       const token = data.accessToken;
       localStorage.setItem("token", token);
+      localStorage.setItem("user_id ", id);
+      onChildClick();
 
-      navigate("/welcome/host");
+      navigate(`/host/${id}`);
     } else {
       alert("Login failed, try again or register the account!");
     }

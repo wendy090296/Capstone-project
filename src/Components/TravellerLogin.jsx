@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
-const TravellerLogin = () => {
+const TravellerLogin = ({ onChildClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -18,10 +18,12 @@ const TravellerLogin = () => {
 
     if (response.ok) {
       const data = await response.json();
+      const id = data.id;
       const token = data.accessToken;
       localStorage.setItem("token", token);
-      console.log("Navigating to /welcome/traveller");
-      navigate("/welcome/traveller");
+      localStorage.setItem("user_id ", id);
+      onChildClick();
+      navigate(`/traveler/${id}`);
     } else {
       alert("Login failed, try again or register the account!");
     }

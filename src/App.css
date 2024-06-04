@@ -14,10 +14,19 @@
 
 .navbar1 {
   background-color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 2;
 }
+
 .navbar2 {
   background-color: #3d605b;
-  /* transform: translateY(-50px); */
+  transition: top 0.5s;
+  top: 100px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 .footer {
@@ -57,4 +66,67 @@ main {
 }
 .modal-title {
   color: #0b3f5e;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-animated {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.navbar-hidden {
+  transition: top 0.3s;
+  top: -100px;
+}
+
+.navbar-visible {
+  transition: top 0.3s;
+  top: 0;
+}
+
+.not-found {
+  margin-top: 100px;
+}
+
+.traveler-profile {
+  background-color: #f5f5f5;
+  margin-top: 110px;
+  color: #264f4b;
+}
+
+.profile-host {
+  margin-top: 110px;
+  background-color: #f5f5f5;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.info-box {
+  background-color: white;
+  height: 100vh;
+}
+
+.travel-info,
+.description,
+.interest,
+.language,
+.age {
+  color: #b3cb3d;
+}
+
+.world-icon,
+.info-icon,
+.activity-icon,
+.language-icon,
+.age-icon {
+  color: #b3cb3d;
 }
