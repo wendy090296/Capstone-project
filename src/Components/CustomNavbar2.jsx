@@ -3,8 +3,14 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useNavigate } from "react-router";
 
 const CustomNavbar2 = () => {
+  const navigate = useNavigate();
+
+  const handleMissionClick = () => {
+    navigate("/mission");
+  };
   return (
     <Container fluid>
       <Row>
@@ -85,14 +91,11 @@ const CustomNavbar2 = () => {
               id="collapsible-nav-dropdown"
               className="text-white fs-6"
             >
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
+              <NavDropdown.Item
+                className="text-center"
+                onClick={handleMissionClick}
+              >
+                ...and values
               </NavDropdown.Item>
             </NavDropdown>
           </Col>

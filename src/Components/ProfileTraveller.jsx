@@ -52,6 +52,7 @@ const ProfileTraveller = () => {
     travelDestination,
     description,
     interests,
+
     avatar,
   } = traveller;
   return (
@@ -99,7 +100,6 @@ const ProfileTraveller = () => {
               Travel information
             </span>
           </div>
-          {/* <strong>Età:</strong> {age} */}
           <div>
             <strong>My next destination:</strong>
           </div>

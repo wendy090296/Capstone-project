@@ -23,6 +23,7 @@ const HostRegistration = ({ onChildClick }) => {
   const [workingHours, setWorkingHours] = useState("");
   const [wifi, setWifi] = useState("");
   const [pets, setPets] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const navigate = useNavigate();
 
   const handleHostFormSubmit = async (e) => {
@@ -45,6 +46,7 @@ const HostRegistration = ({ onChildClick }) => {
           password,
           age,
           location,
+          avatar,
           projectDescription,
           spokenLanguages,
           maxOccupancy,
@@ -79,6 +81,7 @@ const HostRegistration = ({ onChildClick }) => {
     setError("");
     setAge("");
     setLocation("");
+    setAvatar(null);
     setProjectDescription("");
     setSpokenLanguages("");
     setMaxOccupancy("");
@@ -169,9 +172,19 @@ const HostRegistration = ({ onChildClick }) => {
         </Form.Group>
 
         <Form.Group className="m-2">
+          <Form.Label>Profile picture</Form.Label>
+          <Form.Control
+            type="file"
+            value={avatar}
+            onChange={(e) => setAvatar(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
           <Form.Label>Location</Form.Label>
           <Form.Control
-            type="text"
+            type="file"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required

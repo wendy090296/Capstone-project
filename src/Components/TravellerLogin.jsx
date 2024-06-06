@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import { useAuth } from "./AuthContext";
 
 const TravellerLogin = ({ onChildClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleTravellerSubmit = async (e) => {
@@ -19,9 +22,16 @@ const TravellerLogin = ({ onChildClick }) => {
     if (response.ok) {
       const data = await response.json();
       const id = data.id;
+      const name = data.name;
+      const surname = data.surname;
       const token = data.accessToken;
       localStorage.setItem("token", token);
-      localStorage.setItem("user_id ", id);
+      localStorage.setItem("user_id", id);
+      localStorage.setItem("role", data.role);
+      login(data);
+      localStorage.setItem("name", name);
+      localStorage.setItem("surname", surname);
+      console.log("login done");
       onChildClick();
       navigate(`/traveler/${id}`);
     } else {

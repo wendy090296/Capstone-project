@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import { useAuth } from "./AuthContext";
 
 const HostLogin = ({ onChildClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const { login } = useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,10 +22,17 @@ const HostLogin = ({ onChildClick }) => {
       const data = await response.json();
       const id = data.id;
       const token = data.accessToken;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user_id ", id);
-      onChildClick();
+      const name = data.name;
+      const surname = data.surname;
 
+      localStorage.setItem("token", token);
+      localStorage.setItem("user_id", id);
+      localStorage.setItem("role", data.role);
+
+      login(data);
+      localStorage.setItem("name", name);
+      localStorage.setItem("surname", surname);
+      onChildClick();
       navigate(`/host/${id}`);
     } else {
       alert("Login failed, try again or register the account!");

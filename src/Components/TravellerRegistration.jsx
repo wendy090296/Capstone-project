@@ -17,10 +17,12 @@ const TravellerRegistration = ({ onChildClick }) => {
   const [failureMessage, setFailureMessage] = useState("");
   const [age, setAge] = useState("");
   const [country, setCountry] = useState("");
+  const [flag, setFlag] = useState("");
   const [travelDestination, setTravelDestination] = useState("");
   const [description, setDescription] = useState("");
   const [spokenLanguages, setSpokenLanguages] = useState("");
   const [interests, setInterests] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
@@ -42,8 +44,11 @@ const TravellerRegistration = ({ onChildClick }) => {
           surname,
           email,
           password,
+          confirmedPasswordVisible,
           age,
           country,
+          flag,
+          avatar,
           description,
           travelDestination,
           spokenLanguages,
@@ -76,9 +81,11 @@ const TravellerRegistration = ({ onChildClick }) => {
     setFailureMessage("");
     setError("");
     setAge("");
-    setCountry("");
+    // setCountry("");
+    // // setFlag("");
     setTravelDestination("");
     setSpokenLanguages("");
+    // setAvatar("");
     setDescription("");
     setInterests("");
   };
@@ -165,9 +172,29 @@ const TravellerRegistration = ({ onChildClick }) => {
         </Form.Group>
 
         <Form.Group className="m-2">
+          <Form.Label>Profile picture</Form.Label>
+          <Form.Control
+            type="file"
+            value={avatar}
+            onChange={(e) => setAvatar(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
           <Form.Label>Country</Form.Label>
           <Form.Control
             type="text"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="m-2">
+          <Form.Label>Country</Form.Label>
+          <Form.Control
+            type="file"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             required

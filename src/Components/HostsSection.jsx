@@ -11,6 +11,7 @@ const HostsSection = ({ host }) => {
   const [hosts, setHosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedHost, setSelectedHost] = useState(null);
+  const [visibleHosts, setVisibleHosts] = useState(4); // Initially show 4 hosts
   const navigate = useNavigate();
 
   const myUrl = "http://localhost:3001/hosts";
@@ -19,7 +20,6 @@ const HostsSection = ({ host }) => {
     fetch(myUrl)
       .then((response) => {
         console.log("response", response);
-
         if (response.ok) {
           return response.json();
         } else {
@@ -41,10 +41,19 @@ const HostsSection = ({ host }) => {
     fetchHosts();
   }, []);
 
+  useEffect(() => {
+    console.log("hosts:", hosts);
+    console.log("visibleHosts:", visibleHosts);
+  }, [hosts, visibleHosts]);
+
   const handleHostSelection = (host) => {
     console.log("Selected Host:", host);
     setSelectedHost(host);
     navigate(`/host/${host.id}`);
+  };
+
+  const handleShowMoreHosts = () => {
+    setVisibleHosts((prevVisibleHosts) => prevVisibleHosts + 4);
   };
 
   return (
@@ -65,7 +74,7 @@ const HostsSection = ({ host }) => {
         </div>
       ) : (
         <Row className="justify-content-center">
-          {hosts.map((host) => (
+          {hosts.slice(0, visibleHosts).map((host) => (
             <Col
               xs={12}
               md={4}
@@ -97,6 +106,18 @@ const HostsSection = ({ host }) => {
               </Card>
             </Col>
           ))}
+        </Row>
+      )}
+      {visibleHosts < hosts.length && (
+        <Row className="justify-content-center my-5">
+          <Col md={3} lg={2}>
+            <Button
+              className="show-more border border-none text-dark fw-bold mb-3"
+              onClick={handleShowMoreHosts}
+            >
+              Show more hosts
+            </Button>
+          </Col>
         </Row>
       )}
     </Container>

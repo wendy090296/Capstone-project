@@ -112,14 +112,18 @@ main {
 
 .info-box {
   background-color: white;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .travel-info,
 .description,
 .interest,
 .language,
-.age {
+.age,
+.language-host,
+.age-host,
+.accommodation,
+.description-host {
   color: #b3cb3d;
 }
 
@@ -127,6 +131,45 @@ main {
 .info-icon,
 .activity-icon,
 .language-icon,
-.age-icon {
+.age-icon,
+.info-icon-host,
+.language-icon-host,
+.acc-icon-host,
+.age-icon-host {
   color: #b3cb3d;
+}
+
+.show-more {
+  background-color: #fee383 !important;
+}
+
+.list-unstyled li:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.social-media span:hover {
+  cursor: pointer;
+}
+
+.mission {
+  margin-top: 110px;
+  color: #3d605b;
+}
+.row-mission {
+  background-color: #f5f5f5;
+}
+.profile-button {
+  background-color: #3d605b !important;
+}
+
+.edit-container {
+  margin-top: 110px;
+}
+.save-changes {
+  background-color: #3d605b !important;
+}
+
+.edit-profile {
+  margin-top: 110px;
 }
