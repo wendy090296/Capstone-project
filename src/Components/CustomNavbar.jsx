@@ -17,6 +17,7 @@ import HostLogin from "./HostLogin";
 import TravellerRegistration from "./TravellerRegistration";
 import HostRegistration from "./HostRegistration";
 import { useAuth } from "./AuthContext";
+import DeleteProfile from "./DeleteProfile";
 
 const CustomNavbar = () => {
   const [showDrop, setShowDrop] = useState(false);
@@ -27,6 +28,7 @@ const CustomNavbar = () => {
   const [showJoinHost, setShowJoinHost] = useState(false);
   const [joinModalTitle, setJoinModalTitle] = useState("");
   const [loginModalTitle, setLoginModalTitle] = useState("");
+  const [showDeleteModalTraveler, setShowDeleteModalTraveler] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -92,6 +94,13 @@ const CustomNavbar = () => {
     setShowJoinHost(false);
   };
 
+  const handleShowDeleteModalTraveler = () => {
+    setShowDeleteModalTraveler(true);
+  };
+
+  const handleCloseDeleteModalTraveler = () => {
+    setShowDeleteModalTraveler(false);
+  };
   return (
     <Container fluid className="navbar1 navbar-scrolled">
       <Row className="align-items-center justify-content-center">
@@ -128,12 +137,22 @@ const CustomNavbar = () => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as={Link} to={editRoute}>
-                    Edit Profile
+                    Edit profile
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    as={Link}
+                    onClick={handleShowDeleteModalTraveler}
+                  >
+                    Delete profile
                   </Dropdown.Item>
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Col>
+            <DeleteProfile
+              show={showDeleteModalTraveler}
+              handleClose={handleCloseDeleteModalTraveler}
+            />
           </>
         ) : (
           <>

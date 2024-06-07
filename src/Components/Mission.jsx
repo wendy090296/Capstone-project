@@ -19,22 +19,23 @@ const Mission = () => {
                 {" "}
                 With thousands and thousands of users and millions of page views
                 every month we thought it was time to write another update on
-                Workaway where we’ve come from and where we’re going…{" "}
+                Calling4 Backpackers where we’ve come from and where we’re
+                going…{" "}
               </p>
               <p>
                 First of all a continued big thank you to everyone who has made
-                the success of Backpackers possible. As well as our current
-                team, we also want thank the thousands of members who have used
-                our platform to connect and spread the message on a global
-                scale.{" "}
+                the success of Calling4 Backpackers possible. As well as our
+                current team, we also want thank the thousands of members who
+                have used our platform to connect and spread the message on a
+                global scale.{" "}
               </p>
               <p>
                 Did you know that we’ve grown completely organically and NEVER
                 actively advertise?
               </p>{" "}
-              Backpackers has grown via word of mouth which only inspires us to
-              keep going, knowing that we are providing a service that is making
-              waves across the global travel community.
+              Calling4 Backpackers has grown via word of mouth which only
+              inspires us to keep going, knowing that we are providing a service
+              that is making waves across the global travel community.
             </div>
           </Col>
           <Col md={4} className="text-center">

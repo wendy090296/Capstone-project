@@ -13,6 +13,7 @@ import { AuthProvider } from "./Components/AuthContext";
 import Mission from "./Components/Mission";
 import EditHostProfile from "./Components/EditHostProfile";
 import EditTravelerProfile from "./Components/EditTravelerProfile";
+import DeleteProfile from "./Components/DeleteProfile";
 
 const App = () => {
   const [isScrollingDown, setIsScrollingDown] = useState(false);
@@ -50,6 +51,7 @@ const App = () => {
             <Route path="/mission" element={<Mission />} />
             <Route path="/edit/traveler" element={<EditTravelerProfile />} />
             <Route path="/edit/host" element={<EditHostProfile />} />
+            {/* <Route path="/delete/profile" element={<DeleteProfile />} /> */}
             <Route
               path="*"
               element={

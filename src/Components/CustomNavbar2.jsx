@@ -95,7 +95,7 @@ const CustomNavbar2 = () => {
                 className="text-center"
                 onClick={handleMissionClick}
               >
-                ...and values
+                Discover more
               </NavDropdown.Item>
             </NavDropdown>
           </Col>
